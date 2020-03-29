@@ -36,7 +36,7 @@ ggplot(state_infec,
   scale_y_log10()+
   #expand_limits(x = c(1,maximax), y = c(1,maximax))+
   scale_fill_gradientn(colors = c("green","yellow","red"),values = c(0,ave_pos_rate,1))+
-  labs(x = "Compeleted COVID-19 tests per 100,000",
+  labs(x = "Completed COVID-19 tests per 100,000",
        y = "Positive COVID-19 tests per 100,000",
        fill = "Share of test results positive",
        title = "COVID-19 testing and results by state, gubernatorial election, and party of current governor",
