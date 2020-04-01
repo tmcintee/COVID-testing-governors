@@ -8,7 +8,7 @@ require(gifski)
 state_infec_base <- read_csv(url("https://covidtracking.com/api/states.csv"))
 state_pop <- read_csv("state populations.csv")
 state_elec <- read_csv("state governors.csv")
-state_area <- read_csv("state areas.csv")
+state_area <- data.frame(state = state.abb, area = state.area)
 state_urbanization <- read_csv("state urbanization.csv")
 state_turnout <- read_csv("governors_turnout.csv")
 state_infec <- state_infec_base %>%
@@ -37,7 +37,7 @@ ggplot(state_infec,
   #expand_limits(x = c(1,maximax), y = c(1,maximax))+
   scale_fill_gradientn(colors = c("green","yellow","red"),values = c(0,ave_pos_rate,1))+
   labs(x = "Completed COVID-19 tests per 100,000",
-       y = "Positive COVID-19 tests per 100,000",
+       y = "COVID-19 confirmed cases per 100,000",
        fill = "Share of test results positive",
        title = "COVID-19 testing and results by state, gubernatorial election, and party of current governor",
        size = "Population",
@@ -89,7 +89,6 @@ ggplot(state_infec,aes(y = positive/(positive + negative),x = Last_gov_turnout, 
   guides()
 
 
-
 state_summary <- state_infec %>%
   group_by(election) %>%
   #filter(state != "WA" & state != "NY") %>%
@@ -103,8 +102,53 @@ state_summary <- state_infec %>%
 
 #Under construction
 state_infec_time <- read.csv(url("http://covidtracking.com/api/states/daily.csv"))
-state_infec_time <- inner_join(state_infec_time,state_pop)
-state_infec_time[is.na(state_infec_time)] <- 0
+state_infec_time_mod <- state_infec_time %>%
+	inner_join(state_elec) %>%
+	inner_join(state_area) %>%
+	inner_join(state_urbanization) %>%
+	inner_join(state_pop) %>%
+	inner_join(state_turnout)
+state_infec_time_mod[is.na(state_infec_time_mod)] <- 0
+
+ggplot(state_infec_time_mod %>% filter(state %in% c("NC","SC","VA","GA","TN")),
+		 aes(x = date,
+		 	 y = 100000*death/population,
+		 	 color = state,
+		 	 label = state,
+		 	 group = state))+
+	geom_smooth()+
+		 	geom_text()+
+	theme_bw()+
+	labs(color = "State",
+		  x = "Date",
+		  y = "Deaths per 100000")
+
+groups_time <- state_infec_time_mod %>%
+	group_by(election,date) %>%
+	summarise(Population = sum(population),
+				 Urbanization = weighted.mean(urbanization,population),
+				 Deaths = sum(death),
+				 Hospitalized = sum(hospitalized),
+				 Tests_Completed = sum(totalTestResults),
+				 Confirmed_cases = sum(positive),
+				 Deaths_per = 100000*Deaths/Population,
+				 Cases_per = 100000*Confirmed_cases/Population,
+				 Tests_per = 100000*Tests_Completed/Population,
+				 Median_per = median(100000*positive/population))
+
+ggplot(groups_time %>% filter(Deaths > 0),aes(x = date,
+							  y = Deaths_per,
+							  color = election))+
+	geom_point()+
+	geom_smooth(se = FALSE)+
+	scale_y_log10()+
+	scale_color_brewer(palette = "Set1")+
+	labs(x = "Date",
+		  y = "Deaths per 100,000",
+		  color = "Gubernatorial election schedule",
+		  title = "COVID-19 deaths per capita by gubernatorial election schedule",
+		  subtitle = paste0("Death data from covidtracking.com; plot generated ",date()))
+
 
 g_basic <- ggplot(state_infec_time,aes(y = positive,x = negative))+
   geom_point()+
