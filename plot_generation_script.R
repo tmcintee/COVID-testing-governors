@@ -91,7 +91,7 @@ ggplot(state_infec,aes(y = positive/(positive + negative),x = Last_gov_turnout, 
 
 
 state_summary <- state_infec %>%
-  group_by(election,current) %>%
+  group_by(election) %>%
   #filter(state != "WA" & state != "NY") %>%
   summarise(Total_population = sum(population),
             Total_deaths = sum(death),
