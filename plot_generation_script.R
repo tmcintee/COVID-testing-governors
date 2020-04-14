@@ -5,7 +5,8 @@ require(gifski)
 #current snapshot
 
 
-state_infec_base <- state_infec_time_mod %>% filter(numeric_date == max(numeric_date))
+#state_infec_base <- state_infec_time_mod %>% filter(numeric_date == max(numeric_date))
+state_infec_base <- read.csv(file = "https://covidtracking.com/api/v1/states/current.csv")
 state_pop <- read_csv("state populations.csv")
 state_elec <- read_csv("state governors.csv")
 state_area <- data.frame(state = state.abb, area = state.area)
