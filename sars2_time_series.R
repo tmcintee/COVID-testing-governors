@@ -23,15 +23,88 @@ states_group_election <- state_infec_time_mod %>%
             Total_tests = sum(positive + negative),
             Deaths_per = 100000*Deaths/Population,
             Cases_per = 100000*Confirmed_cases/Population,
-            Tests_per = 100000*Total_tests/Population)
-ggplot(states_group_election %>% filter(Deaths > 0),aes(x = date, y = Deaths, color = election))+
+            Tests_per = 100000*Total_tests/Population,
+            Negative_per = 100000*sum(negative)/Population)
+states_group_this_year <- state_infec_time_mod %>%
+  mutate(this_year = ((election %in% c("Biennial","Presidential")))) %>%
+  group_by(date,this_year) %>%
+  summarise(Population = sum(population),
+            Deaths = sum(death),
+            Confirmed_cases = sum(positive),
+            Total_tests = sum(positive + negative),
+            Deaths_per = 100000*Deaths/Population,
+            Cases_per = 100000*Confirmed_cases/Population,
+            Tests_per = 100000*Total_tests/Population,
+            Negative_per = 100000*sum(negative)/Population)
+states_group_party <- state_infec_time_mod %>%
+  group_by(date,current) %>%
+  summarise(Population = sum(population),
+            Deaths = sum(death),
+            Confirmed_cases = sum(positive),
+            Total_tests = sum(positive + negative),
+            Deaths_per = 100000*Deaths/Population,
+            Cases_per = 100000*Confirmed_cases/Population,
+            Tests_per = 100000*Total_tests/Population,
+            Negative_per = 100000*sum(negative)/Population)
+min_date = as.Date("2020-04-01")
+max_date = max(state_infec_time_mod$date)
+g1 <- ggplot(states_group_election %>% filter(Deaths > 0 & Negative_per > 0),aes(x = date,
+                                                        y = Deaths_per,
+                                                        color = election,
+                                                        fill = election))+
   geom_point()+
-  geom_smooth()+
-  scale_x_date()+
-  scale_y_log10()+
+  scale_x_date(limits = c(min_date,max_date))+
   labs(x = "Date",
-       y = "COVID-19 deaths",
-       color = "Gubernatorial election schedule")
+       y = "Confirmed COVID-19 deaths per 100,000",
+       color = "",
+       title = "Gubernatorial election schedule")+
+  guides(alpha = FALSE, fill = FALSE)+
+  scale_color_manual(values = c("light green","gold","yellow","dark green"))+
+  scale_fill_manual(values = c("dark green","gold","gold","dark green"))+
+  theme_bw()+
+  theme(legend.position = "bottom")
+
+g2 <- ggplot(states_group_this_year %>% filter(Deaths > 0),aes(x = date,
+                                                               y = Deaths_per,
+                                                               color = this_year,
+                                                               fill = this_year))+
+  geom_point()+
+  scale_x_date(limits = c(min_date,max_date))+
+  labs(x = "Date",
+       y = "Confirmed COVID-19 deaths per 100,000",
+       color = "",
+       title = "Has 2020 gubernatorial elections")+
+  guides(fill = FALSE)+
+  scale_color_manual(values = c("gold","dark green"))+
+  scale_fill_manual(values = c("gold","dark green"))+
+  theme_bw()+
+  theme(legend.position = "bottom")
+
+g3 <- ggplot(states_group_party %>% filter(Deaths > 0),aes(x = date,
+                                                                     y = Deaths_per,
+                                                                     color = current))+
+  geom_point()+
+  scale_x_date(limits = c(min_date,max_date))+
+  labs(x = "Date",
+       y = "Confirmed COVID-19 deaths per 100,000",
+       color = "",
+       title = "Party of current governor")+
+  guides(fill = FALSE)+
+  scale_color_manual(values = c("blue","red"))+
+  theme_bw()+
+  theme(legend.position = "bottom")
+ggpubr::ggarrange(g2,g1,g3,nrow = 1)
+state_infec_time_mod_rs <- state_infec_time_mod %>% mutate(code = state) %>% select(code,positive, population,negative,election,date)
+ggplot(state_infec_time_mod,aes(y = 100000*positive/population*(1/(1-positive/(positive+negative))),
+                                 x = date,
+                                 color = election))+
+  geom_line(data = state_infec_time_mod_rs,aes(group = code),alpha = 0.1, color = "gray")+
+  geom_line()+
+  scale_y_log10()+
+  theme_bw()+
+  facet_wrap(~state,nrow = 5)+
+  guides(color = FALSE)+
+  labs(y = "Estimated COVID-19 cases per 100,000")
 
 my_states <- c("CA","NC","VA","OH")
 states_group_me <- state_infec_time_mod %>%
