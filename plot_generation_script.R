@@ -25,7 +25,7 @@ ave_pos_rate <- sum(state_infec$positive)/sum(state_infec$positive + state_infec
 max_pos_rate <- max(state_infec$pos_rate)
 state_infec$density <- state_infec$population/state_infec$area
 ggplot(state_infec,
-       aes(y = 100000*positive/population,
+       aes(y = 100000*death/population,
            x = 100000*(positive + negative)/population,
            size = population,
            fill = pos_rate,
@@ -37,7 +37,7 @@ ggplot(state_infec,
   #expand_limits(x = c(1,maximax), y = c(1,maximax))+
   scale_fill_gradientn(colors = c("green","yellow","red"),values = c(0,ave_pos_rate,1))+
   labs(x = "Completed COVID-19 tests per 100,000",
-       y = "COVID-19 confirmed cases per 100,000",
+       y = "COVID-19 confirmed deaths per 100,000",
        fill = "Share of test results positive",
        title = "COVID-19 testing and results by state, gubernatorial election, and party of current governor",
        size = "Population",
