@@ -37,6 +37,7 @@ states_group_this_year <- state_infec_time_mod %>%
             Tests_per = 100000*Total_tests/Population,
             Negative_per = 100000*sum(negative)/Population)
 states_group_party <- state_infec_time_mod %>%
+  filter(state != "MT") %>%
   group_by(date,current) %>%
   summarise(Population = sum(population),
             Deaths = sum(death),
@@ -48,7 +49,7 @@ states_group_party <- state_infec_time_mod %>%
             Negative_per = 100000*sum(negative)/Population)
 min_date = as.Date("2020-04-01")
 max_date = max(state_infec_time_mod$date)
-g1 <- ggplot(states_group_election %>% filter(Deaths > 0 & Negative_per > 0),aes(x = date,
+g1 <- ggplot(states_group_election %>% filter(Deaths > 0),aes(x = date,
                                                         y = Deaths_per,
                                                         color = election,
                                                         fill = election))+
@@ -57,7 +58,7 @@ g1 <- ggplot(states_group_election %>% filter(Deaths > 0 & Negative_per > 0),aes
   labs(x = "Date",
        y = "Confirmed COVID-19 deaths per 100,000",
        color = "",
-       title = "Gubernatorial election schedule")+
+       title = "COVID-19 deaths by gubernatorial election schedule")+
   guides(alpha = FALSE, fill = FALSE)+
   scale_color_manual(values = c("light green","gold","yellow","dark green"))+
   scale_fill_manual(values = c("dark green","gold","gold","dark green"))+
