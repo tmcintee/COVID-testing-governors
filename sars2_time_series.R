@@ -1,5 +1,5 @@
-library(sars2pack)
-library(tidyverse)
+require(sars2pack)
+require(tidyverse)
 state_infec_time <- covidtracker_data()
 state_pop <- read_csv("state populations.csv")
 state_elec <- read_csv("state governors.csv")
