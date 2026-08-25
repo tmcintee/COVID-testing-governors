@@ -56,6 +56,8 @@ run_step("time_series.R")
 run_step("sars2_time_series.R")
 run_step("plot_generation_script.R")
 run_step("turnout v death graphic.R")
+run_step("excess_death_analysis.R")
+run_step("hispanic_interaction_term.R")
 
 dev.off()
 message("\nAll done. Plots saved to: ", pdf_path)

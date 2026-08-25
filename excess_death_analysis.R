@@ -1,6 +1,7 @@
 aamr <- read.csv("AAMR_by_state.csv") %>%
 	select(-Population)
-state_pop <- read.csv("state populations.csv")
+state_elec <- read_csv("state elections.csv")
+state_pop <- read_csv("state populations.csv")
 death_baseline <- aamr %>%
 	group_by(State) %>%
 	filter(Year != 2020) %>%
@@ -52,18 +53,59 @@ excess_death_parties_2020 <- excess_deaths %>%
 	group_by(current,election %in% c("Biennial","Presidential")) %>%
 	summary_excess()
 
-turn_model = lm(1e5*(excess_deaths/population) ~ Last_gov_turnout, data = excess_deaths)
+turn_model_6 = lm(1e5*(excess_deaths/population) ~ Last_gov_turnout, data = excess_deaths)
 # Model 2: Turnout + 2020 election
-turn_model_2 = lm(1e5*(excess_deaths/population) ~ Last_gov_turnout + 
+turn_model_7 = lm(1e5*(excess_deaths/population) ~ Last_gov_turnout + 
 		(election == "Midterm"|election =="Biennial"), data = excess_deaths)
-turn_model_3 = lm(1e5*(excess_deaths/population) ~ Last_gov_turnout + 
+turn_model_8 = lm(1e5*(excess_deaths/population) ~ Last_gov_turnout + 
 		election, data = excess_deaths)
 # Add partisanship
-turn_model_4 = lm(1e5*(excess_deaths/population) ~ Last_gov_turnout + 
+turn_model_9 = lm(1e5*(excess_deaths/population) ~ Last_gov_turnout + 
 		(election == "Midterm"|election =="Biennial") +
 		current, 
 	data = excess_deaths)
-turn_model_5 = lm(1e5*(excess_deaths/population) ~ Last_gov_turnout + 
+turn_model_10 = lm(1e5*(excess_deaths/population) ~ Last_gov_turnout + 
 		election + 
 		current, 
 	data = excess_deaths)
+
+# Pure schedule
+excess_deaths$local_index <- (excess_deaths$local_index)/6
+excess_deaths$elec_index <- excess_deaths$elec_index/10
+
+turn_model_11 = lm(1e5*(excess_deaths/population) ~ (election == "Midterm"|election =="Biennial") +
+		local_index, 
+	data = excess_deaths)
+
+turn_model_12 = lm(1e5*(excess_deaths/population) ~ election +
+		local_index, 
+	data = excess_deaths)
+
+turn_model_13 = lm(1e5*(excess_deaths/population) ~
+		elec_index, 
+	data = excess_deaths)
+
+# Add turnout
+turn_model_14 = lm(1e5*(excess_deaths/population) ~ Last_gov_turnout + 
+		(election == "Midterm"|election =="Biennial") +
+		local_index, 
+	data = excess_deaths)
+
+turn_model_15 = lm(1e5*(excess_deaths/population) ~ Last_gov_turnout + 
+		election +
+		local_index, 
+	data = excess_deaths)
+
+turn_model_16 = lm(1e5*(excess_deaths/population) ~ Last_gov_turnout + 
+		elec_index, 
+	data = excess_deaths)
+
+excess_deaths_midterm <- excess_deaths %>% 
+	filter(election == "Midterm")
+
+turn_model_17 = lm(1e5*(excess_deaths/population) ~ local_index,
+	data = excess_deaths_midterm)
+
+turn_model_18 = lm(1e5*(excess_deaths/population) ~ Last_gov_turnout +
+		local_index,
+	data = excess_deaths_midterm)
