@@ -1,6 +1,9 @@
 # Replication Script for Auerbach, Lerner, and Ridge "State Capacity and Covid-19 Responses: Comparing US States"
 # Script run on R version 4.1.3
 # McIntee replication notes: Commented out a number of lines that error out until the script ran. Otherwise, did not notice any major differences poking at this using R 4.4.2.
+# This script is drawn from a repository that was made available under a Creative Commons CC0 license with the following additional/modified terms and conditions:
+
+# The State Politics & Policy Quarterly and the Odum Institute for Research in Social Science are not responsible for the accuracy or quality of data uploaded within the SPPQ Dataverse, for the use of those data, or for interpretations or conclusions based on their use.
 
 
 library(psych)
