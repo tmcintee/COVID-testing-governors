@@ -1,6 +1,6 @@
-require(sars2pack)
 require(tidyverse)
-state_infec_time <- covidtracker_data()
+source("covid_data_source.R")
+state_infec_time <- get_covidtracking_data()
 state_pop <- read_csv("state populations.csv")
 state_elec <- read_csv("state governors.csv")
 state_area <- data.frame(state = state.abb, area = state.area)
@@ -12,7 +12,7 @@ state_infec_time_mod <- state_infec_time %>%
   inner_join(state_urbanization) %>%
   inner_join(state_pop) %>%
   inner_join(state_turnout)
-state_infec_time_mod[is.na(state_infec_time_mod)] <- 0
+# state_infec_time_mod[is.na(state_infec_time_mod)] <- 0
 state_infec_time_mod <- state_infec_time_mod %>%
   mutate(numeric_date = as.numeric(date)-min(as.numeric(date)))
 states_group_election <- state_infec_time_mod %>%

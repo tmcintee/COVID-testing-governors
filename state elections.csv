@@ -1,51 +1,51 @@
-state,election,current
-AL,Midterm,R
-AK,Midterm,R
-AZ,Midterm,R
-AR,Midterm,R
-CA,Midterm,D
-CO,Midterm,D
-CT,Midterm,D
-DE,Presidential,D
-FL,Midterm,R
-GA,Midterm,R
-HI,Midterm,D
-ID,Midterm,R
-IL,Midterm,D
-IN,Presidential,R
-IA,Midterm,R
-KS,Midterm,D
-KY,Off-year,D
-LA,Off-year,D
-ME,Midterm,D
-MD,Midterm,R
-MA,Midterm,R
-MI,Midterm,D
-MN,Midterm,D
-MS,Off-year,R
-MO,Presidential,R
-MT,Presidential,D
-NE,Midterm,R
-NV,Midterm,D
-NH,Biennial,R
-NJ,Off-year,D
-NM,Midterm,D
-NY,Midterm,D
-NC,Presidential,D
-ND,Presidential,R
-OH,Midterm,R
-OK,Midterm,R
-OR,Midterm,D
-PA,Midterm,D
-RI,Midterm,D
-SC,Midterm,R
-SD,Midterm,R
-TN,Midterm,R
-TX,Midterm,R
-UT,Presidential,R
-VT,Biennial,R
-VA,Off-year,D
-WA,Presidential,D
-WV,Presidential,R
-WI,Midterm,D
-WY,Midterm,R
+state,election,current,legislative_election,State,State,State_legislative_year,County_Month,County_Year,Municipal_Month,Municipal_Year,School_Month,School_Year,local_index,gub_index,sl_index,state_index,elec_index
+AL,Midterm,R,Even,AL,AL,Even,November,Even,August,Even,Varies,Varies,3,1,1,4,6
+AK,Midterm,R,Even,AK,AK,Even,October,All,October,All,Varies,Varies,0,1,1,4,3
+AZ,Midterm,R,Even,AZ,AZ,Even,November,Even,Multiple schedules,,November,Even,4,1,1,4,7
+AR,Midterm,R,Even,AR,AR,Even,November,Even,November,Even,September,All,4,1,1,4,7
+CA,Midterm,D,Even,CA,CA,Even,June,Even,Multiple schedules,Multiple schedules,Multiple schedules,,1,1,1,4,4
+CO,Midterm,D,Even,CO,CO,Even,November,Even,Multiple schedules,Multiple schedules,November,Odd,3,1,1,4,6
+CT,Midterm,D,Even,CT,CT,Even,N/A,N/A,Varies,Varies,Multiple schedules,,0,1,1,4,3
+DE,Presidential,D,Even,DE,DE,Even,November,Even,Varies,Varies,May,All,2,2,1,6,7
+FL,Midterm,R,Even,FL,FL,Even,November,Even,Varies,Varies,November,Even,4,1,1,4,7
+GA,Midterm,R,Even,GA,GA,Even,November,Even,November,Odd,Multiple schedules,,3,1,1,4,6
+HI,Midterm,D,Even,HI,HI,Even,November,Even,N/A,N/A,N/A,N/A,6,1,1,4,9
+ID,Midterm,R,Even,ID,ID,Even,November,Even,November,Odd,May,Odd,3,1,1,4,6
+IL,Midterm,D,Even,IL,IL,Even,November,Even,April,Odd,April,Odd,2,1,1,4,5
+IN,Presidential,R,Even,IN,IN,Even,November,Even,November,Odd,November,Even,5,2,1,6,10
+IA,Midterm,R,Even,IA,IA,Even,November,Even,November,Odd,September,Odd,3,1,1,4,6
+KS,Midterm,D,Even,KS,KS,Even,November,Even,April,Odd,April,Odd,2,1,1,4,5
+KY,Off-year,D,Even,KY,KY,Even,November,Odd,November,Even,November,Even,5,0,1,2,6
+LA,Off-year,D,Odd,LA,LA,Odd,November,Odd,Multiple schedules,Multiple schedules,November,Even,3,0,0,0,2
+ME,Midterm,D,Even,ME,ME,Even,November,Even,Varies,Varies,Varies,Varies,2,1,1,4,5
+MD,Midterm,R,Even,MD,MD,Even,November,Even,Varies,Varies,November,Even,4,1,1,4,7
+MA,Midterm,R,Even,MA,MA,Even,November,Even,Varies,Varies,Varies,Varies,2,1,1,4,5
+MI,Midterm,D,Even,MI,MI,Even,November,Even,Multiple schedules,Multiple schedules,November,Even,4,1,1,4,7
+MN,Midterm,D,Even,MN,MN,Even,November,Even,Multiple schedules,Multiple schedules,Multiple schedules,Multiple schedules,2,1,1,4,5
+MS,Off-year,R,Odd,MS,MS,Odd,November,Odd,June,Odd,Multiple schedules,Multiple schedules,1,0,0,0,0
+MO,Presidential,R,Even,MO,MO,Even,November,Even,April,All,April,All,2,2,1,6,7
+MT,Presidential,D,Even,MT,MT,Even,November,Even,November,Odd,May,All,3,2,1,6,8
+NE,Midterm,R,Even,NE,NE,Even,November,Even,November,Even,November,Even,6,1,1,4,9
+NV,Midterm,D,Even,NV,NV,Even,November,Even,Multiple schedules,Multiple schedules,November,Even,4,1,1,4,7
+NH,Biennial,R,Even,NH,NH,Even,November,Even,Varies,Varies,Varies,Varies,2,3,1,8,9
+NJ,Off-year,D,Even,NJ,NJ,Odd,November,Even,Varies,Varies,Multiple schedules,Multiple schedules,2,0,1,2,3
+NM,Midterm,D,Even,NM,NM,Even,November,All,Multiple schedules,Multiple schedules,Multiple schedules,Multiple schedules,1,1,1,4,4
+NY,Midterm,D,Even,NY,NY,Even,November,Even,March,Even,February,Odd,3,1,1,4,6
+NC,Presidential,D,Even,NC,NC,Even,November,All,Varies,Varies,May,All,1,2,1,6,6
+ND,Presidential,R,Even,ND,ND,Even,November,Even,November,Odd,Varies,Varies,3,2,1,6,8
+OH,Midterm,R,Even,OH,OH,Even,November,Even,June,Even,Varies,Varies,3,1,1,4,6
+OK,Midterm,R,Even,OK,OK,Even,November,Even,November,Odd,November,Odd,4,1,1,4,7
+OR,Midterm,D,Even,OR,OR,Even,November,Even,April,Odd,February,All,2,1,1,4,5
+PA,Midterm,D,Even,PA,PA,Even,November,Odd,November,Even,May,Odd,3,1,1,4,6
+RI,Midterm,D,Even,RI,RI,Even,N/A,N/A,November,Odd,November,Odd,3,1,1,4,6
+SC,Midterm,R,Even,SC,SC,Even,November,Even,Varies,Varies,November,Even,4,1,1,4,7
+SD,Midterm,R,Even,SD,SD,Even,November,Even,Varies,Varies,Varies,Varies,2,1,1,4,5
+TN,Midterm,R,Even,TN,TN,Even,August,Even,Varies,Varies,Varies,Varies,1,1,1,4,4
+TX,Midterm,R,Even,TX,TX,Even,November,Even,Multiple schedules,,Multiple schedules,Multiple schedules,2,1,1,4,5
+UT,Presidential,R,Even,UT,UT,Even,November,Even,November,Odd,November,Even,5,2,1,6,10
+VT,Biennial,R,Even,VT,VT,Even,November,Even,March,All,Varies,Varies,2,3,1,8,9
+VA,Off-year,D,Odd,VA,VA,Odd,November,Odd,Multiple schedules,Multiple schedules,Multiple schedules,Multiple schedules,1,0,0,0,0
+WA,Presidential,D,Even,WA,WA,Even,November,Even,November,Odd,Varies,Varies,3,2,1,6,8
+WV,Presidential,R,Even,WV,WV,Even,November,Even,Varies,Varies,May,Even,3,2,1,6,8
+WI,Midterm,D,Even,WI,WI,Even,Multiple schedules,,April,All,April,All,0,1,1,4,3
+WY,Midterm,R,Even,WY,WY,Even,November,Even,Multiple schedules,Multiple schedules,November,Even,4,1,1,4,7
