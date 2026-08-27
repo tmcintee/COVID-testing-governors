@@ -26,11 +26,27 @@ g_cor <- ggplot(state_infec,aes(x = Last_gov_turnout, y = 100000*death/populatio
 
 ggpubr::ggarrange(nrow = 1,g_cov + labs(title = "COVID-19 deaths per capita"),g_cor,g_turnout + labs(title = "Turnout in last gubernatorial election"))
 
-cov_model = lm((death/population) ~ Last_gov_turnout +  density, data = state_infec)
-dens_model = lm((death/population) ~ density, data = state_infec)
-turn_model = lm((death/population) ~ Last_gov_turnout, data = state_infec)
-elec_model = lm((death/population) ~ election, data = state_infec)
-pol_model = lm((death/population) ~ election + Last_gov_turnout, data = state_infec)
+# Model 
+cov_model = lm(1e5*(death/population) ~ Last_gov_turnout +  density, data = state_infec)
+dens_model = lm(1e5*(death/population) ~ density, data = state_infec)
+# Model 1: Turnout only
+turn_model = lm(1e5*(death/population) ~ Last_gov_turnout, data = state_infec)
+# Model 2: Turnout + 2020 election
+turn_model_2 = lm(1e5*(death/population) ~ Last_gov_turnout + 
+		(election == "Midterm"|election =="Biennial"), data = state_infec)
+turn_model_3 = lm(1e5*(death/population) ~ Last_gov_turnout + 
+		election, data = state_infec)
+# Add partisanship
+turn_model_4 = lm(1e5*(death/population) ~ Last_gov_turnout + 
+		(election == "Midterm"|election =="Biennial") +
+		current, 
+	data = state_infec)
+turn_model_5 = lm(1e5*(death/population) ~ Last_gov_turnout + 
+		election + 
+		current, 
+	data = state_infec)
+elec_model = lm(1e5*(death/population) ~ election, data = state_infec)
+pol_model = lm(1e5*(death/population) ~ election + Last_gov_turnout, data = state_infec)
 everything_model = lm(death/population ~ election + Last_gov_turnout + urbanization + density + current,data = state_infec)
 everything_but_sched = lm(death / population ~ Last_gov_turnout +urbanization + density + current, data = state_infec)
 everything_but_turnout = lm(death / population ~ election +urbanization + density + current, data = state_infec)

@@ -6,7 +6,9 @@ require(gifski)
 
 
 #state_infec_base <- state_infec_time_mod %>% filter(numeric_date == max(numeric_date))
-state_infec_base <- read.csv(file = "https://covidtracking.com/api/v1/states/current.csv")
+source("covid_data_source.R")
+state_infec_base <- get_covidtracking_data() %>%
+	filter(date == max(date))
 state_pop <- read_csv("state populations.csv")
 state_elec <- read_csv("state governors.csv")
 state_area <- data.frame(state = state.abb, area = state.area)
@@ -18,7 +20,7 @@ state_infec <- state_infec_base %>%
   inner_join(state_urbanization) %>%
   inner_join(state_pop) %>%
   inner_join(state_turnout)
-state_infec[is.na(state_infec)] <- 0
+#state_infec[is.na(state_infec)] <- 0
 maximax <- max(state_infec$total,na.rm = TRUE)
 state_infec$pos_rate <- state_infec$positive/(state_infec$positive+state_infec$negative)
 ave_pos_rate <- sum(state_infec$positive)/sum(state_infec$positive + state_infec$negative)
@@ -32,8 +34,8 @@ ggplot(state_infec,
            label = state))+
   geom_point(shape = 21)+
   geom_text_repel(size = 4, alpha = 1)+
-  scale_x_log10()+
-  scale_y_log10()+
+  # scale_x_log10()+
+  # scale_y_log10()+
   #expand_limits(x = c(1,maximax), y = c(1,maximax))+
   scale_fill_gradientn(colors = c("green","yellow","red"),values = c(0,ave_pos_rate,1))+
   labs(x = "Completed COVID-19 tests per 100,000",
@@ -54,8 +56,8 @@ ggplot(state_infec,
            label = state))+
   geom_point(shape = 21)+
   geom_text_repel(size = 4, alpha = 1)+
-  scale_x_log10()+
-  scale_y_log10()+
+  # scale_x_log10()+
+  # scale_y_log10()+
   #expand_limits(x = c(1,maximax), y = c(1,maximax))+
   scale_fill_gradientn(colors = c("green","yellow","red"),values = c(0,ave_pos_rate,1))+
   labs(x = "Confirmed COVID-19 cases",
@@ -80,7 +82,7 @@ ggplot(state_infec,aes(y = positive/(positive + negative),x = Last_gov_turnout, 
   geom_text_repel(size = 4)+
   #expand_limits(x = c(1,maximax), y = c(1,maximax))+
   scale_fill_gradientn(colors = c("green","yellow","red"),values = c(0,ave_pos_rate,1))+
-  scale_y_log10()+
+  # scale_y_log10()+
   labs(x = "Turnout in last gubernatorial election",
        y = "Positive rate on COVID-19 tests")+
   geom_smooth(method = "lm")+

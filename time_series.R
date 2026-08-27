@@ -1,5 +1,6 @@
 require(tidyverse)
-state_infec_daily <- read_csv(url("https://covidtracking.com/api/states/daily.csv"))
+source("covid_data_source.R")
+state_infec_daily <- get_covidtracking_data()
 state_infec_daily$pos_rate <- state_infec_daily$positive/(state_infec_daily$positive+state_infec_daily$negative)
 state_infec_daily$pos_rate_instant <- state_infec_daily$positiveIncrease/(state_infec_daily$positiveIncrease+state_infec_daily$negativeIncrease)
 state_tests <- state_infec_daily %>% group_by(state) %>% summarise(tests = max(totalTestResults)) %>% arrange(-tests)
